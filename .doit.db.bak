@@ -55,3 +55,4 @@
 'copy_assets:output/assets/js/fancydates.min.js', (43008, 412)
 'robots_file:output/robots.txt', (43520, 136)
 'copy_assets:output/assets/js/justified-layout.min.js', (44032, 424)
+'copy_files:output/CNAME', (44544, 230)
