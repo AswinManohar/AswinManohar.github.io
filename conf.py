@@ -153,7 +153,7 @@ NAVIGATION_LINKS = {
     DEFAULT_LANG: (
         (
             (
-                ("/categories/cat_trading/", "Trading"),
+                ("/categories/cat_trading/", "AI"),
                 ("/categories/cat_python/", "Python"),
                 ("/archive.html/", "Archived Posts"),
                 ("/posts/", "All Posts"),

@@ -6,7 +6,7 @@
 'render_listings', (2560, 56)
 'copy_assets:output/assets/js/gallery.js', (3072, 399)
 'copy_assets:output/assets/css/nikola_ipython.css', (3584, 416)
-'sitemap:output/sitemap.xml', (67072, 1339)
+'sitemap:output/sitemap.xml', (67072, 1342)
 'copy_assets:output/assets/js/jquery.min.js', (5120, 418)
 'copy_assets:output/assets/js/luxon.min.js', (5632, 402)
 'render_site', (6144, 56)
