@@ -140,11 +140,35 @@ TRANSLATIONS_PATTERN = '{path}.{lang}.{ext}'
 #          with a ``/``, otherwise end them with ``/index.html`` — or
 #          else they won’t be highlighted when active.
 
+#NAVIGATION_LINKS = {
+#    DEFAULT_LANG: (
+#        ("/archive.html", "Archive"),
+#        ("/categories/", "Tags"),
+#        ("/rss.xml", "RSS feed"),
+#    ),
+#}
+
+
 NAVIGATION_LINKS = {
     DEFAULT_LANG: (
-        ("/archive.html", "Archive"),
-        ("/categories/", "Tags"),
-        ("/rss.xml", "RSS feed"),
+        (
+            (
+                ("/categories/cat_trading/", "Trading"),
+                ("/categories/cat_python/", "Python"),
+                ("/archive.html/", "Archived Posts"),
+                ("/posts/", "All Posts"),
+            ),
+            "Coding and AI"
+        ),
+        (
+            (
+                ("/about-me/", "About me"),
+                ("/pages/", "Eclectic digest"),
+            ),
+            "Blog"
+        ),
+        ("/categories/index.html", "Tags"),
+        ("/contact/", "Contact"),
     ),
 }
 
@@ -157,7 +181,7 @@ NAVIGATION_ALT_LINKS = {
 
 # Name of the theme to use.
 #THEME ="bootstrap4"
-THEME="lanyon"
+THEME="hack"
 # A theme color. In default themes, it might be displayed by some browsers as
 # the browser UI color (eg. Chrome on Android). Other themes might also use it
 # as an accent color (the default ones don’t). Must be a HEX value.
@@ -983,7 +1007,7 @@ LICENSE = ""
 
 # A small copyright notice for the page footer (in HTML).
 # (translatable)
-CONTENT_FOOTER = 'Contents &copy; {date}         <a href="mailto:{email}">{author}</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         {license}'
+CONTENT_FOOTER = 'Contents &copy; {date}         <a href="mailto:{email}">{author}</a>'
 
 # Things that will be passed to CONTENT_FOOTER.format().  This is done
 # for translatability, as dicts are not formattable.  Nikola will
@@ -1406,6 +1430,7 @@ WARN_ABOUT_TAG_METADATA = False
 # Put in global_context things you want available on all your templates.
 # It can be anything, data, functions, modules, etc.
 GLOBAL_CONTEXT = {}
+GLOBAL_CONTEXT['HACK_VARIANT'] = 'dark'
 
 # Add functions here and they will be called with template
 # GLOBAL_CONTEXT as parameter when the template is about to be

@@ -5,9 +5,9 @@ STOP_RENDERING = runtime.STOP_RENDERING
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1680870631.1063938
+_modified_time = 1680881592.4235044
 _enable_loop = True
-_template_filename = 'themes/lanyon/templates/base.tmpl'
+_template_filename = 'themes/hack/templates/base.tmpl'
 _template_uri = 'base.tmpl'
 _source_encoding = 'utf-8'
 _exports = ['extra_head', 'content', 'extra_js']
@@ -37,24 +37,21 @@ def render_body(context,**pageargs):
         _mako_get_namespace(context, 'base')._populate(_import_ns, ['*'])
         _mako_get_namespace(context, 'header')._populate(_import_ns, ['*'])
         _mako_get_namespace(context, 'footer')._populate(_import_ns, ['*'])
-        set_locale = _import_ns.get('set_locale', context.get('set_locale', UNDEFINED))
-        momentjs_locales = _import_ns.get('momentjs_locales', context.get('momentjs_locales', UNDEFINED))
-        date_fanciness = _import_ns.get('date_fanciness', context.get('date_fanciness', UNDEFINED))
-        def extra_head():
-            return render_extra_head(context._locals(__M_locals))
-        base = _mako_get_namespace(context, 'base')
         lang = _import_ns.get('lang', context.get('lang', UNDEFINED))
+        set_locale = _import_ns.get('set_locale', context.get('set_locale', UNDEFINED))
         def extra_js():
             return render_extra_js(context._locals(__M_locals))
-        lanyon_subtheme = _import_ns.get('lanyon_subtheme', context.get('lanyon_subtheme', UNDEFINED))
-        body_end = _import_ns.get('body_end', context.get('body_end', UNDEFINED))
-        js_date_format = _import_ns.get('js_date_format', context.get('js_date_format', UNDEFINED))
-        messages = _import_ns.get('messages', context.get('messages', UNDEFINED))
-        template_hooks = _import_ns.get('template_hooks', context.get('template_hooks', UNDEFINED))
-        footer = _mako_get_namespace(context, 'footer')
+        base = _mako_get_namespace(context, 'base')
         header = _mako_get_namespace(context, 'header')
         def content():
             return render_content(context._locals(__M_locals))
+        template_hooks = _import_ns.get('template_hooks', context.get('template_hooks', UNDEFINED))
+        HACK_VARIANT = _import_ns.get('HACK_VARIANT', context.get('HACK_VARIANT', UNDEFINED))
+        footer = _mako_get_namespace(context, 'footer')
+        messages = _import_ns.get('messages', context.get('messages', UNDEFINED))
+        body_end = _import_ns.get('body_end', context.get('body_end', UNDEFINED))
+        def extra_head():
+            return render_extra_head(context._locals(__M_locals))
         __M_writer = context.writer()
         __M_writer('\n')
         __M_writer('\n')
@@ -70,42 +67,38 @@ def render_body(context,**pageargs):
         __M_writer('\n')
         __M_writer(str(template_hooks['extra_head']()))
         __M_writer('\n</head>\n')
-        if lanyon_subtheme:
-            __M_writer('<body class="')
-            __M_writer(str(lanyon_subtheme))
-            __M_writer('">\n')
-        else:
-            __M_writer('<body>\n')
-        __M_writer('    <a href="#content" class="sr-only sr-only-focusable">')
+        if not HACK_VARIANT:
+            __M_writer('    <body class="hack">\n')
+        elif HACK_VARIANT == 'dark':
+            __M_writer('    <body class="hack dark">\n')
+        elif HACK_VARIANT == 'dark-grey':
+            __M_writer('    <body class="hack dark-grey">\n')
+        elif HACK_VARIANT == 'solarized-dark':
+            __M_writer('    <body class="hack solarized-dark">\n')
+        elif HACK_VARIANT == 'standard':
+            __M_writer('    <body class="hack standard">\n')
+        __M_writer('\n<a href="#content" class="sr-only sr-only-focusable">')
         __M_writer(str(messages("Skip to main content")))
-        __M_writer('</a>\n    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular\n            styles, `#sidebar-checkbox` for behavior. -->\n    <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">\n\n    <!-- Toggleable sidebar -->\n    <div class="sidebar" id="sidebar">\n        <div class="sidebar-item">\n            <p>Welcome to my hood<a href="https://getnikola.com" target="_blank">Nikola</a>\n        </div>\n        ')
-        __M_writer(str(header.html_navigation_links()))
-        __M_writer('\n    </div>\n\n    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the\n         content to avoid any CSS collisions with our real content. -->\n    <div class="wrap">\n      <div class="masthead">\n        <div class="container">\n          ')
-        __M_writer(str(header.html_site_title()))
-        __M_writer('\n        </div>\n      </div>\n\n      <div class="container content" id="content">\n        ')
+        __M_writer('</a>\n    <div id="container">\n         ')
+        __M_writer(str(header.html_header()))
+        __M_writer('\n         <main id="content">\n            ')
         if 'parent' not in context._data or not hasattr(context._data['parent'], 'content'):
             context['self'].content(**pageargs)
         
 
-        __M_writer('\n        ')
+        __M_writer('\n         </main>\n         ')
         __M_writer(str(footer.html_footer()))
-        __M_writer('\n      </div>\n    </div>\n    <label for="sidebar-checkbox" class="sidebar-toggle"></label>\n    ')
-        __M_writer(str(body_end))
-        __M_writer('\n    ')
-        __M_writer(str(template_hooks['body_end']()))
-        __M_writer('\n    ')
+        __M_writer('\n    </div>\n    ')
         __M_writer(str(base.late_load_js()))
-        __M_writer('\n    <!-- fancy dates -->\n    <script>\n    moment.locale("')
-        __M_writer(str(momentjs_locales[lang]))
-        __M_writer('");\n    fancydates(')
-        __M_writer(str(date_fanciness))
-        __M_writer(', ')
-        __M_writer(str(js_date_format))
-        __M_writer(');\n    </script>\n    <!-- end fancy dates -->\n    ')
+        __M_writer('\n    ')
         if 'parent' not in context._data or not hasattr(context._data['parent'], 'extra_js'):
             context['self'].extra_js(**pageargs)
         
 
+        __M_writer('\n    ')
+        __M_writer(str(body_end))
+        __M_writer('\n    ')
+        __M_writer(str(template_hooks['body_end']()))
         __M_writer('\n</body>\n</html>\n')
         return ''
     finally:
@@ -160,6 +153,6 @@ def render_extra_js(context,**pageargs):
 
 """
 __M_BEGIN_METADATA
-{"filename": "themes/lanyon/templates/base.tmpl", "uri": "base.tmpl", "source_encoding": "utf-8", "line_map": {"23": 2, "26": 3, "29": 4, "32": 0, "59": 2, "60": 3, "61": 4, "62": 5, "63": 5, "64": 6, "65": 6, "70": 9, "71": 10, "72": 10, "73": 12, "74": 13, "75": 13, "76": 13, "77": 14, "78": 15, "79": 17, "80": 17, "81": 17, "82": 27, "83": 27, "84": 35, "85": 35, "90": 40, "91": 41, "92": 41, "93": 45, "94": 45, "95": 46, "96": 46, "97": 47, "98": 47, "99": 50, "100": 50, "101": 51, "102": 51, "103": 51, "104": 51, "109": 54, "115": 7, "125": 7, "131": 40, "146": 54, "161": 146}}
+{"filename": "themes/hack/templates/base.tmpl", "uri": "base.tmpl", "source_encoding": "utf-8", "line_map": {"23": 2, "26": 3, "29": 4, "32": 0, "56": 2, "57": 3, "58": 4, "59": 5, "60": 5, "61": 6, "62": 6, "67": 9, "68": 10, "69": 10, "70": 12, "71": 13, "72": 14, "73": 15, "74": 16, "75": 17, "76": 18, "77": 19, "78": 20, "79": 21, "80": 23, "81": 24, "82": 24, "83": 26, "84": 26, "89": 28, "90": 30, "91": 30, "92": 32, "93": 32, "98": 33, "99": 34, "100": 34, "101": 35, "102": 35, "108": 7, "118": 7, "124": 28, "139": 33, "154": 139}}
 __M_END_METADATA
 """
